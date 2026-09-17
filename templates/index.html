@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Resume Screening Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>AI Resume Screening Agent</h1>
+    <p>Upload your resume (PDF) and enter job skills.</p>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+
+        <label>Select Resume (PDF)</label>
+        <input type="file" name="resume" accept=".pdf" required>
+
+        <label>Required Skills</label>
+		<textarea
+    name="job_description"
+    rows="5"
+    placeholder="Paste the complete job description here..."
+    required>
+      </textarea>
+
+        <button type="submit">Analyze Resume</button>
+
+    </form>
+	{% if score is not none %}
+	<div class="result">
+
+    <h2>Resume Analysis</h2>
+
+    <h3>Matching Percentage</h3>
+    <p>{{ score }}%</p>
+
+    <h3>Matched Skills</h3>
+    <p>{{ matched }}</p>
+
+    <h3>Missing Skills</h3>
+    <p>{{ missing }}</p>
+
+</div>
+{% endif %}
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
